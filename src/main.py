@@ -1,6 +1,6 @@
 from typing import Optional
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Header, Request
 from pydantic import BaseModel
 
 app = FastAPI(docs_url=None, redoc_url=None)
@@ -29,3 +29,10 @@ class Book(BaseModel):
 @app.post("/book")
 async def create_book(book: Book) -> dict:
     return {"title": book.title, "author": book.author}
+
+
+@app.get("/header")
+async def header(request: Request) -> str | dict | None:
+    # request_header = dict(request.headers)
+    accept = request.headers.get("accept")
+    return accept
