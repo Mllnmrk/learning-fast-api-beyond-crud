@@ -26,7 +26,7 @@ class Book(BaseModel):
     author: str
 
 
-@app.post("/book")
+@app.post("/book", status_code=201)
 async def create_book(book: Book) -> dict:
     return {"title": book.title, "author": book.author}
 
