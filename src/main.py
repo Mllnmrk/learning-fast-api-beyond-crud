@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fastapi import FastAPI
 
 app = FastAPI(docs_url=None, redoc_url=None)
@@ -14,5 +16,5 @@ async def parameter(sample: str):
 
 
 @app.get("/query-parameter")
-async def query_parameter(name: str) -> dict:
-    return {"name": f"this is the query parameter: {name}"}
+async def query_parameter(name: str = "Username", age: Optional[int] = 0) -> dict:
+    return {"name": f"this is the query parameter: {name}", "age": age}
