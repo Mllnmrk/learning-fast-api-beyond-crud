@@ -1,7 +1,8 @@
 from typing import Optional
 
 from fastapi import FastAPI, Header, Request
-from pydantic import BaseModel
+
+from schemas.book import Book
 
 app = FastAPI(docs_url=None, redoc_url=None)
 
@@ -19,11 +20,6 @@ async def parameter(sample: str):
 @app.get("/query-parameter")
 async def query_parameter(name: str = "Username", age: Optional[int] = 0) -> dict:
     return {"name": f"this is the query parameter: {name}", "age": age}
-
-
-class Book(BaseModel):
-    title: str
-    author: str
 
 
 @app.post("/book", status_code=201)
